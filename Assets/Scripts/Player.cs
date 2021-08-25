@@ -237,6 +237,7 @@ public class Player : MonoBehaviour
     void OnDeath()
     {
         _spawnManager.OnPlayerDeath();
+        _uiManager.OnPlayerDeath();
         Destroy(this.gameObject);
     }
 

@@ -96,9 +96,9 @@
             "id": "78b91151-b9a4-4744-9a0d-95d2a840f8ca",
             "actions": [
                 {
-                    "name": "New action",
+                    "name": "Restart",
                     "type": "Button",
-                    "id": "b1fcec16-617b-468a-b50d-017c8b8f3df1",
+                    "id": "150ae531-e4ec-47a9-b547-499a57d02efb",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -107,12 +107,12 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "bfc1c24e-6911-4fa0-aae7-30601a6e120f",
-                    "path": "",
+                    "id": "4352d156-3329-4624-b56a-e1825c9625dd",
+                    "path": "<Keyboard>/r",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard",
-                    "action": "New action",
+                    "groups": "UI",
+                    "action": "Restart",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -123,6 +123,17 @@
         {
             "name": "Keyboard",
             "bindingGroup": "Keyboard",
+            "devices": [
+                {
+                    "devicePath": "<Keyboard>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "UI",
+            "bindingGroup": "UI",
             "devices": [
                 {
                     "devicePath": "<Keyboard>",
