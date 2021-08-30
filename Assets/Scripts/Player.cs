@@ -9,7 +9,13 @@ public class Player : MonoBehaviour
     Vector3 _playerPos;
     Vector3 _playerBound;
     Vector3 _playerDirection;
+    Vector2 _playerInput;
     //End Player Position Container
+
+    //Start Player Animation Control
+    private Animator _playerAnimation;
+
+    //End Player Animation Control
 
     //Start Player Boundaries
     private float _lwallBound = -11.28f;
@@ -92,6 +98,8 @@ public class Player : MonoBehaviour
             Debug.LogError("UI Manager is null");
         }
 
+        _playerAnimation = GetComponent<Animator>();
+
         OnSpawn();
 
     }
@@ -127,7 +135,8 @@ public class Player : MonoBehaviour
     
     public void playerDirection(InputAction.CallbackContext context)
     {
-        Vector2 _playerInput = context.ReadValue<Vector2>();
+        _playerInput = context.ReadValue<Vector2>();
+
         _playerDirection = new Vector3(_playerInput.x, _playerInput.y, 0.0f);
     }
     void OnMove()
@@ -142,6 +151,26 @@ public class Player : MonoBehaviour
             _playerCurrentSpeed = _playerDefaultSpeed;
         }
         transform.Translate(_playerDirection * _playerCurrentSpeed * Time.deltaTime);
+
+        if (_playerInput == Vector2.left)
+        {
+            _playerAnimation.SetBool("Left", true);
+        }
+        else
+        {
+            _playerAnimation.SetBool("Left", false);
+        }
+        
+        if (_playerInput == Vector2.right)
+        {
+            _playerAnimation.SetBool("Right", true);
+
+        }
+        else
+        {
+            _playerAnimation.SetBool("Right", false);
+        }
+        
     }
     void OnBound()
     {
