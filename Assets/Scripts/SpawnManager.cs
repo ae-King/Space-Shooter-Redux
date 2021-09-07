@@ -41,8 +41,8 @@ public class SpawnManager : MonoBehaviour
     {
         StartCoroutine(PlayerSpawn());
     }
-    // Start is called before the first frame update
-    void Start()
+
+    public void OnAsteroidDestroy()
     {
         StartCoroutine(EnemySpawn());
         StartCoroutine(PowerUpSpawn());
