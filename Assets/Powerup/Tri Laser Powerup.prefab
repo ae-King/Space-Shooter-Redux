@@ -139,6 +139,7 @@ MonoBehaviour:
   _powerUpID: 2
   _powerupSpeed: 7
   _floorBound: -6
+  _powerupAudio: {fileID: 8300000, guid: 5ee343246919d2b4bba63ae629e95494, type: 3}
 --- !u!95 &3536084427423990340
 Animator:
   serializedVersion: 3

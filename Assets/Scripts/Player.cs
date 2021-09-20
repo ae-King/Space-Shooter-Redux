@@ -14,7 +14,6 @@ public class Player : MonoBehaviour
 
     //Start Player Animation Control
     private Animator _playerAnimation;
-
     //End Player Animation Control
 
     //Start Player Boundaries
@@ -63,6 +62,9 @@ public class Player : MonoBehaviour
     private int _laserMaxAmmo = 30;
     [SerializeField]
     private int _currentLaserAmmo;
+    private AudioSource _playerAudio;
+    [SerializeField] private AudioClip _laserAudio;
+
     //End Weapon Statistics
 
     //Start Powerup
@@ -74,6 +76,10 @@ public class Player : MonoBehaviour
     private bool _shieldBoostEnabled;
     [SerializeField]
     private GameObject _shieldVisual;
+    [SerializeField]
+    public GameObject _explosion;
+    [SerializeField]
+    private GameObject[] _damageVisual;
     //End Powerup
 
     // Start is called before the first frame update
@@ -99,6 +105,16 @@ public class Player : MonoBehaviour
         }
 
         _playerAnimation = GetComponent<Animator>();
+        if (_playerAnimation == null)
+        {
+            Debug.LogError("Player Animation is null");
+        }
+        _playerAudio = GetComponent<AudioSource>(); //get component
+        if (_playerAudio == null)
+        {
+            Debug.LogError("UI Manager is null");
+        } else { _playerAudio.clip = _laserAudio; } //assign audio clip to source 
+
 
         OnSpawn();
 
@@ -220,6 +236,8 @@ public class Player : MonoBehaviour
             }
         }
 
+        _playerAudio.Play(); //pew
+
     }
 
     public void OnKill(int _enemyValue) //parameter received from enemy to determine amount of points
@@ -243,13 +261,27 @@ public class Player : MonoBehaviour
         else
         {
             _currentPlayerHealth -= 1;
+
+            
+            if (_currentPlayerHealth == 2)
+            {
+                _damageVisual[0].SetActive(true);
+            } 
+            if (_currentPlayerHealth == 1)
+            {
+                _damageVisual[1].SetActive(true);
+            }
+
+
+
             _uiManager.OnLivesUpdate(_currentPlayerHealth); //update life display
+
 
             if (_currentPlayerHealth <= 0)
             {
                 OnDeath();
             }
-            else if (_currentPlayerHealth > 0 && _currentPlayerHealth < 10)
+            else if (_currentPlayerHealth >= 1 && _currentPlayerHealth < 3)
             {
                 StartCoroutine(OnRegen());
             }
@@ -261,10 +293,21 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(30f);
         _currentPlayerHealth += 1;
         _uiManager.OnLivesUpdate(_currentPlayerHealth); //update life display
+
+        //repair visuals
+        if (_currentPlayerHealth == 3)
+        {
+            _damageVisual[0].SetActive(false);
+        }
+        if (_currentPlayerHealth == 2)
+        {
+            _damageVisual[1].SetActive(false);
+        }
     }
 
     void OnDeath()
     {
+        //Instantiate(_explosion, transform.position, Quaternion.identity);
         _spawnManager.OnPlayerDeath();
         _uiManager.OnPlayerDeath();
         Destroy(this.gameObject);
@@ -328,6 +371,7 @@ public class Player : MonoBehaviour
     }
     //Speed - End
 
+    
 
     //Shield - Start
     public void OnShieldEnable()

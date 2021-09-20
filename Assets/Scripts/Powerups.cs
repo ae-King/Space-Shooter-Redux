@@ -13,11 +13,12 @@ public class Powerups : MonoBehaviour
     [SerializeField]
     private float _floorBound = -6f;
 
+    [SerializeField]
+    private AudioClip _powerupAudio;
 
     // Start is called before the first frame update
     void Start()
     {
-
     }
 
     // Update is called once per frame
@@ -50,14 +51,17 @@ public class Powerups : MonoBehaviour
                 */
                 case 0:
                     _player.OnShieldEnable();
+                    PowerUpAudio();
                     Destroy(this.gameObject);
                     break;
                 case 1:
                     _player.OnSpeedEnable();
+                    PowerUpAudio();
                     Destroy(this.gameObject);
                     break;
                 case 2:
                     _player.OnTriEnable();
+                    PowerUpAudio();
                     Destroy(this.gameObject);
                     break;
                 default:
@@ -67,5 +71,10 @@ public class Powerups : MonoBehaviour
             }
 
         }
+    }
+
+    private void PowerUpAudio()
+    {
+        AudioSource.PlayClipAtPoint(_powerupAudio, transform.position);
     }
 }

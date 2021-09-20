@@ -8,6 +8,7 @@ public class Enemy : MonoBehaviour
     private Animator _enemyAnimation;
     private BoxCollider2D _enemyCollider;
     private float _deathanimationTime = 2.633f;
+    private AudioSource _enemyExplosion;
 
     [SerializeField]
     private float _enemySpeed = 7f;
@@ -22,6 +23,7 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         _player = GameObject.Find("Player").GetComponent<Player>(); //cache player reference
+        _enemyExplosion = GetComponent<AudioSource>();
         _enemyAnimation = GetComponent<Animator>();
         _enemyCollider = GetComponent<BoxCollider2D>();
     }
@@ -61,6 +63,7 @@ public class Enemy : MonoBehaviour
 
             _enemyAnimation.SetTrigger("OnDestroyed");
             StartCoroutine(OnDeath());
+            _enemyExplosion.Play();
             Destroy(_enemyCollider, 0.5f);
             Destroy(this.gameObject, _deathanimationTime);
 
@@ -75,7 +78,8 @@ public class Enemy : MonoBehaviour
 
             _enemyAnimation.SetTrigger("OnDestroyed");
             StartCoroutine(OnDeath());
-            Destroy(_enemyCollider, 0.5f);
+            _enemyExplosion.Play();
+            Destroy(_enemyCollider);
             Destroy(this.gameObject, _deathanimationTime);
         }
     }

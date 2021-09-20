@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class Asteroid : MonoBehaviour
 {
-    private float _moveSpeed = 1f;
+    //private float _moveSpeed = 1f;
     private float _rotateSpeed = 6f;
     private Player _player;
-    private CircleCollider2D _collider;
-    private Animator _explode;
     [SerializeField] private GameObject _explosion;
+    private CircleCollider2D _collider;
     private SpawnManager _spawnManager;
 
     // Start is called before the first frame update
