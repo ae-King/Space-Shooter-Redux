@@ -48,7 +48,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39ff3803fe20ba842b080e98c41f204c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemySpeed: 7
+  _enemySpeed: 4
+  _fireRate: 3
+  _canFire: -1
+  _laserPref: {fileID: 3148954805364316783, guid: d460e55992166ad43a557b0587abc7b5, type: 3}
 --- !u!50 &2994728458819661306
 Rigidbody2D:
   serializedVersion: 4

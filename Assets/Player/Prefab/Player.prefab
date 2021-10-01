@@ -377,7 +377,7 @@ MonoBehaviour:
   _speedBoostEnabled: 0
   _shieldBoostEnabled: 0
   _shieldVisual: {fileID: 6455580125529712025}
-  _explosion: {fileID: 7896626712092656272, guid: efceba857a5f28e41b6aea45bba08297, type: 3}
+  _explosion: {fileID: 7896626712092656272, guid: cd0604b6bc161064d8e347d066d916e1, type: 3}
   _damageVisual:
   - {fileID: 2153129226715218586}
   - {fileID: 7889195425132831266}

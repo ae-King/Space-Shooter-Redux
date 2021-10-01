@@ -11,9 +11,14 @@ public class Enemy : MonoBehaviour
     private AudioSource _enemyExplosion;
 
     [SerializeField]
-    private float _enemySpeed = 7f;
+    private float _enemySpeed = 4f;
     Vector3 _enemyPos;
     private float _onEnemyDeathSpeed = 3.5f;
+
+    [SerializeField] private float _fireRate = 3.0f;
+    [SerializeField] private float _canFire = -1;
+    [SerializeField] private GameObject _laserPref;
+    private Vector3 _laserPos;
 
     private float _floorBound = -6f;
     private float _ceilingBound = 8f;
@@ -32,6 +37,7 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         OnMove();
+        OnFire();
     }
 
     void OnMove()
@@ -39,6 +45,7 @@ public class Enemy : MonoBehaviour
         OnBound();
         transform.Translate(Vector3.down * _enemySpeed * Time.deltaTime);
     }
+
     void OnBound()
     {
         _enemyPos = transform.position;
@@ -47,6 +54,25 @@ public class Enemy : MonoBehaviour
         {
             _enemyPos = new Vector3(_enemyrandomBound, _ceilingBound, 0);
             transform.position = _enemyPos;
+        }
+    }
+
+    private void OnFire()
+    {
+
+        if (Time.time > _canFire)
+        {
+            _laserPos = new Vector3(0, -0.78f, 0);
+
+            _fireRate = Random.Range(3f, 7f);
+            _canFire = Time.time + _fireRate;
+            GameObject _enemyParentLaser = Instantiate(_laserPref, _enemyPos + _laserPos, Quaternion.identity);
+            Laser[] _enemyChildLasers = _enemyParentLaser.GetComponentsInChildren<Laser>();
+
+            for (int i = 0; i < _enemyChildLasers.Length; i++)
+            {
+                _enemyChildLasers[i].IsEnemyLaser();
+            }
         }
     }
 
